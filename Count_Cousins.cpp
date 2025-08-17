@@ -38,3 +38,108 @@ void print_tree(Node* root){
 int main(){
     Node* root=input_tree(); cnt_cousin(root); print_tree(root);
 }
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+public:
+    int val;
+    Node *left;
+    Node *right;
+    Node(int val)
+    {
+        this->val = val;
+        this->right = NULL;
+        this->left = NULL;
+    }
+};
+map<int, int> mp;
+void level_wise_nodes(Node *root)
+{
+    queue<pair<Node *, int>> q;
+    q.push({root, 0});
+    while (!q.empty())
+    {
+        Node *pr = q.front().first;
+        int lv = q.front().second;
+        q.pop();
+        
+        mp[lv]++;
+        if (pr->left)
+            q.push({pr->left, lv + 1});
+        if (pr->right)
+            q.push({pr->right, lv + 1});
+    }
+}
+
+void find_cousin(Node *root)
+{
+    queue<pair<Node *, int>> q;
+    q.push({root, 0});
+    cout << 0 << " ";
+    while (!q.empty())
+    {
+        Node *pr = q.front().first;
+        int lv = q.front().second;
+        q.pop();
+
+        if (pr->left && pr->right)
+            cout << mp[lv + 1] - 2 << " " << mp[lv + 1] - 2 << " ";
+        else if (pr->left || pr->right)
+            cout << mp[lv + 1] - 1 << " ";
+
+        if (pr->left)
+            q.push({pr->left, lv + 1});
+        if (pr->right)
+            q.push({pr->right, lv + 1});
+    }
+}
+void tree_input(Node *&root)
+{
+    int val;
+    cin >> val;
+    queue<Node *> q;
+    if (val != -1)
+    {
+        root = new Node(val);
+        q.push(root);
+    }
+    while (!q.empty())
+    {
+        Node *pr = q.front();
+        q.pop();
+
+        int l, r;
+        cin >> l >> r;
+        Node *myLeft, *myRight;
+
+        if (l != -1)
+        {
+            myLeft = new Node(l);
+            pr->left = myLeft;
+            q.push(myLeft);
+        }
+        if (r != -1)
+        {
+            myRight = new Node(r);
+            pr->right = myRight;
+            q.push(myRight);
+        }
+    }
+}
+
+int main()
+{
+    Node *root = NULL;
+    tree_input(root);
+    level_wise_nodes(root);
+    find_cousin(root);
+
+    return 0;
+}
