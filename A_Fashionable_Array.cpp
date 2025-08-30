@@ -26,4 +26,25 @@ int main(){
     return 0;
 }
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
+
+#include<bits/stdc++.h>
+using namespace std;
+int t,n,i,arr[55],cnt1,cnt2;
+
+void do_this(){
+    cin>>t; while(t--){
+        cin>>n; for(int i=0; i<n; i++){cin>>arr[i];} sort(arr,arr+n); if((arr[0]%2==arr[n-1]%2)){cout<<"0"<<endl;}else{
+            i=0; cnt1=0; while(arr[i]%2!=arr[n-1]%2){i++; cnt1++;} i=n-1; cnt2=0; while(arr[i]%2!=arr[0]%2){i--; cnt2++;} cout<<min(cnt1,cnt2)<<endl;
+        }
+        
+    }
+}
+
+int main(){
+    do_this();
+    return 0;
+}
+
+    
