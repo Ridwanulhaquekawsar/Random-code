@@ -26,3 +26,25 @@ int main(){
     do_this();
     return 0;
 }
+
+-------------------------------------
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int t,x,y,screen,bucket;
+
+void do_this(){
+    cin>>t; while(t--){
+        cin>>x>>y; screen=y/2; bucket=screen*7;
+        if(y%2!=0){screen++; bucket+=11;} 
+        if(x>bucket){
+            x-=bucket; screen+= x%15==0 ? x/15 : (x/15)+1;
+        }cout<<screen<<endl;
+    }
+}
+
+int main(){
+    do_this();
+    return 0;
+}
